@@ -51,7 +51,8 @@ end
 Queuing a webhook for processing is easy. From within our application, all we have to do is:
 
 ```ruby
-ActiveHook::Hook.new(uri: 'http://example.com/webhook', payload: { msg: 'My first webhook!' })
+hook = ActiveHook::Hook.new(uri: 'http://example.com/webhook', payload: { msg: 'My first webhook!' })
+hook.perform
 ```
 
 That's it! We provide a valid string URI, as well hash payload. ActiveHooks queue threads will then attempt to send the webhook. If the webhook fails to be delivered, it will be sent to the retry queue. Delivery will be reattempted at the specified intervals, and eventually dropped if all attempts fail.
